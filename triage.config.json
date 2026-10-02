@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "ignoredLabelPatterns": [
+    "^size/.*",
+    "^dependencies$",
+    "^bot$",
+    "^stale$",
+    "^automerge.*",
+    "^renovate.*",
+    "^dependabot.*",
+    "^needs triage$",
+    "^triage$"
+  ],
+  "duplicateThreshold": 0.68,
+  "confidenceThreshold": 0.5,
+  "maxItemsPerRun": 50,
+  "historySplitRatio": 0.7,
+  "minLabelCount": 5,
+  "signals": {
+    "EMPTY_BODY": {
+      "weight": 40,
+      "description": "PR description is empty or minimal placeholder"
+    },
+    "TEMPLATE_UNFILLED": {
+      "weight": 25,
+      "description": "Required checklist items unchecked or section placeholders untouched"
+    },
+    "TRIVIAL_DOCS_EDIT": {
+      "weight": 35,
+      "description": "Only README/docs changed with <= 3 lines altered"
+    },
+    "WHITESPACE_ONLY": {
+      "weight": 50,
+      "description": "Diff contains only whitespace, indentation, or blank line alterations"
+    },
+    "GENERIC_TITLE": {
+      "weight": 20,
+      "description": "PR title matches generic default patterns (e.g. 'Update README.md')"
+    },
+    "NO_LINKED_ISSUE": {
+      "weight": 15,
+      "description": "No issue reference or ticket link detected in description"
+    },
+    "ADDS_SELF_PROMO_LINK": {
+      "weight": 45,
+      "description": "Modifies contributors/links list only to add self-reference"
+    }
+  },
+  "bands": {
+    "reviewScore": 30,
+    "lowEffortScore": 60
+  },
+  "replyTemplates": {
+    "NEEDS_INFO": "Thanks for opening this! To help us investigate and reproduce this effectively, could you please provide: {missingInfo}? This will help us identify the root cause faster.",
+    "POSSIBLE_DUPLICATE": "Thanks for reporting this! This appears similar to {duplicates}. Could you please review those and check if they address what you are experiencing?",
+    "PR_NEEDS_DESCRIPTION": "Thank you for the pull request! Could you please add a short description explaining what problem this PR solves and link any relevant issue? Thanks!",
+    "PR_LOW_EFFORT": "Thanks for contributing! It looks like this pull request contains very minor changes without description. Please review our contributing guidelines to see how you can make a more meaningful impact."
+  }
+}

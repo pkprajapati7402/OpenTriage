@@ -1,0 +1,7 @@
+[
+  { "name": "bug", "color": "d73a4a", "description": "Confirmed bug in parser or runtime typecheck" },
+  { "name": "enhancement", "color": "a2eeef", "description": "New schema method or feature proposal" },
+  { "name": "documentation", "color": "0075ca", "description": "Documentation updates or typings guides" },
+  { "name": "typescript", "color": "3178c6", "description": "TypeScript type inference or compiler issues" },
+  { "name": "question", "color": "d876e3", "description": "Usage question" }
+]

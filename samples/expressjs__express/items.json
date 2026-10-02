@@ -1,0 +1,126 @@
+[
+  {
+    "id": 5501,
+    "number": 5501,
+    "kind": "issue",
+    "title": "res.cookie with SameSite=None throws warning in modern browsers",
+    "body": "When calling res.cookie('session', 'xyz', { sameSite: 'none' }) on HTTPS, modern browsers like Chrome 128 warn that Secure must also be set. Could express set secure automatically or warn developers in debug mode?\n\n### Version\nExpress 4.19.2 on Node 20.12.0",
+    "author": "webdev99",
+    "authorAssociation": "NONE",
+    "createdAt": "2026-09-28T10:15:00Z",
+    "state": "open",
+    "labels": ["enhancement", "middleware"],
+    "url": "https://github.com/expressjs/express/issues/5501"
+  },
+  {
+    "id": 5502,
+    "number": 5502,
+    "kind": "issue",
+    "title": "Server crashing randomly without stack trace",
+    "body": "My express app crashes every few hours when deployed on AWS EC2. Nothing in stdout. Please fix this urgent.",
+    "author": "cloudguy",
+    "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+    "createdAt": "2026-09-29T14:22:00Z",
+    "state": "open",
+    "labels": ["needs more info"],
+    "url": "https://github.com/expressjs/express/issues/5502"
+  },
+  {
+    "id": 5503,
+    "number": 5503,
+    "kind": "issue",
+    "title": "router.use() param callback not triggering for sub-router",
+    "body": "This seems to be the exact same behavior as discussed in earlier discussions. The param callback on the parent router is bypassed when a sub-router handles mounted routes.",
+    "author": "alex_codes",
+    "authorAssociation": "CONTRIBUTOR",
+    "createdAt": "2026-09-30T09:05:00Z",
+    "state": "open",
+    "labels": ["bug", "middleware"],
+    "duplicateOf": 5420,
+    "url": "https://github.com/expressjs/express/issues/5503"
+  },
+  {
+    "id": 5504,
+    "number": 5504,
+    "kind": "pr",
+    "title": "Update README.md",
+    "body": "<!-- Please describe your changes -->\n",
+    "author": "quick_committer",
+    "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+    "createdAt": "2026-10-01T02:40:00Z",
+    "state": "open",
+    "labels": [],
+    "url": "https://github.com/expressjs/express/pull/5504",
+    "pr": {
+      "changedFiles": [
+        {
+          "path": "README.md",
+          "additions": 1,
+          "deletions": 1,
+          "patch": "@@ -14,3 +14,3 @@\n-Fast, unopinionated, minimalist web framework\n+Fast, unopinionated, minimalist web framework "
+        }
+      ],
+      "totalAdditions": 1,
+      "totalDeletions": 1,
+      "changedFilesCount": 1
+    }
+  },
+  {
+    "id": 5505,
+    "number": 5505,
+    "kind": "pr",
+    "title": "Fix memory leak when req.on('close') listener is retained on aborted streams",
+    "body": "Fixes #5480. When a client abruptly terminates a streaming upload, the request abort listener was not properly unregistered in the response end cycle, leading to slow heap growth over millions of connections.\n\nAdded unit test in `test/req.stream.js` validating cleanup.",
+    "author": "core_hacker",
+    "authorAssociation": "MEMBER",
+    "createdAt": "2026-10-01T16:50:00Z",
+    "state": "open",
+    "labels": ["bug", "performance"],
+    "url": "https://github.com/expressjs/express/pull/5505",
+    "pr": {
+      "changedFiles": [
+        {
+          "path": "lib/request.js",
+          "additions": 14,
+          "deletions": 3,
+          "patch": "@@ -240,6 +240,17 @@\n+    if (this._closeHandler) {\n+      this.removeListener('close', this._closeHandler);\n+    }\n"
+        },
+        {
+          "path": "test/req.stream.js",
+          "additions": 48,
+          "deletions": 0,
+          "patch": "@@ -1,5 +1,53 @@\n+describe('req stream cleanup', function () {\n+  it('should unregister close listeners on abort', function (done) {\n"
+        }
+      ],
+      "totalAdditions": 62,
+      "totalDeletions": 3,
+      "changedFilesCount": 2
+    }
+  },
+  {
+    "id": 5420,
+    "number": 5420,
+    "kind": "issue",
+    "title": "param callbacks on mounted sub-router are not invoked for nested params",
+    "body": "When defining router.param('id', fn) on a parent router, mounting a child router at /:id/items fails to trigger the parent param callback when routes within the child match. Steps to reproduce: create parent router with param handler, mount subrouter with child routes. Expected: parent param handler runs before child handler.",
+    "author": "senior_architect",
+    "authorAssociation": "CONTRIBUTOR",
+    "createdAt": "2026-08-15T11:00:00Z",
+    "state": "open",
+    "labels": ["bug", "middleware"],
+    "url": "https://github.com/expressjs/express/issues/5420"
+  },
+  {
+    "id": 5410,
+    "number": 5410,
+    "kind": "issue",
+    "title": "Document async error handling behavior in Express 5 migration guide",
+    "body": "Express 5 automatically catches rejected promises returned from router middleware. We should clarify in the docs how this affects existing custom error handlers.",
+    "author": "docswriter",
+    "authorAssociation": "MEMBER",
+    "createdAt": "2026-08-10T14:30:00Z",
+    "state": "closed",
+    "labels": ["documentation"],
+    "url": "https://github.com/expressjs/express/issues/5410"
+  }
+]

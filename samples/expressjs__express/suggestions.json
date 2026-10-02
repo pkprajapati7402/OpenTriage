@@ -1,0 +1,144 @@
+{
+  "5501": {
+    "itemNumber": 5501,
+    "labels": {
+      "labels": [
+        { "name": "enhancement", "confidence": 0.88, "reason": "Proposes warning developer or setting secure attribute automatically." },
+        { "name": "middleware", "confidence": 0.72, "reason": "Concerns response cookie handling and HTTP header middleware." }
+      ],
+      "abstain": false,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 420
+    },
+    "duplicates": {
+      "candidates": [],
+      "isDuplicate": false,
+      "topScore": 0.22
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  },
+  "5502": {
+    "itemNumber": 5502,
+    "labels": {
+      "labels": [
+        { "name": "needs more info", "confidence": 0.95, "reason": "Issue reports random crashes without reproduction steps, environment details, or stack trace." }
+      ],
+      "abstain": false,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 380
+    },
+    "duplicates": {
+      "candidates": [],
+      "isDuplicate": false,
+      "topScore": 0.18
+    },
+    "draftReply": {
+      "type": "NEEDS_INFO",
+      "text": "Hi @cloudguy, thank you for opening this issue! To help the maintainers reproduce and diagnose the problem effectively, could you please provide: software/environment version (Node.js and Express version), clear steps to reproduce, and error logs or console output? Once we have these details, we'll be glad to look into it!",
+      "model": "gemma3:1b",
+      "missingFields": ["software/environment version", "clear steps to reproduce", "error logs or console output"]
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  },
+  "5503": {
+    "itemNumber": 5503,
+    "labels": {
+      "labels": [
+        { "name": "bug", "confidence": 0.91, "reason": "Reports unexpected routing callback behavior with sub-router mounting." },
+        { "name": "middleware", "confidence": 0.85, "reason": "Directly impacts router.param middleware execution." }
+      ],
+      "abstain": false,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 410
+    },
+    "duplicates": {
+      "candidates": [
+        {
+          "number": 5420,
+          "title": "param callbacks on mounted sub-router are not invoked for nested params",
+          "url": "https://github.com/expressjs/express/issues/5420",
+          "score": 0.88,
+          "state": "open",
+          "matchedSnippet": "When defining router.param('id', fn) on a parent router, mounting a child router at /:id/items fails to trigger the parent param callback",
+          "reason": "High similarity (88%) in issue title and described routing param behavior"
+        }
+      ],
+      "isDuplicate": true,
+      "topScore": 0.88
+    },
+    "draftReply": {
+      "type": "POSSIBLE_DUPLICATE",
+      "text": "Hi @alex_codes, thanks for reporting this! This looks very similar to #5420 (\"param callbacks on mounted sub-router are not invoked for nested params\"). Could you please check that issue to see if it covers what you are experiencing? If this is a different bug, please let us know how it differs so we can investigate further.",
+      "model": "gemma3:1b",
+      "missingFields": []
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  },
+  "5504": {
+    "itemNumber": 5504,
+    "labels": {
+      "labels": [],
+      "abstain": true,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 250
+    },
+    "duplicates": {
+      "candidates": [],
+      "isDuplicate": false,
+      "topScore": 0.12
+    },
+    "prAssessment": {
+      "band": "LIKELY_LOW_EFFORT",
+      "score": 110,
+      "signals": [
+        { "id": "EMPTY_BODY", "weight": 40, "evidence": "PR description has only 0 characters (excluding HTML comments)." },
+        { "id": "GENERIC_TITLE", "weight": 20, "evidence": "Title matches generic default pattern: \"Update README.md\"." },
+        { "id": "NO_LINKED_ISSUE", "weight": 15, "evidence": "No linked issue reference (e.g. #123) found in PR description." },
+        { "id": "TRIVIAL_DOCS_EDIT", "weight": 35, "evidence": "Only documentation changed with 2 total line change(s) across 1 file(s)." },
+        { "id": "WHITESPACE_ONLY", "weight": 50, "evidence": "Diff inspection indicates changes consist solely of whitespace, formatting, or line endings." }
+      ],
+      "explanation": "High low-effort signals detected (EMPTY_BODY, GENERIC_TITLE, NO_LINKED_ISSUE, TRIVIAL_DOCS_EDIT, WHITESPACE_ONLY). Maintainer review recommended before merging."
+    },
+    "draftReply": {
+      "type": "PR_LOW_EFFORT",
+      "text": "Hi @quick_committer, thanks for checking out the project! It looks like this pull request contains very minor or formatting-only changes without an accompanying description or linked issue. Please check out our contributing guidelines to see how to contribute substantive bug fixes or documentation improvements.",
+      "model": "template",
+      "missingFields": ["PR description explaining motivation and changes", "linked issue or context"]
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  },
+  "5505": {
+    "itemNumber": 5505,
+    "labels": {
+      "labels": [
+        { "name": "bug", "confidence": 0.94, "reason": "Fixes request abort listener leak during stream termination." },
+        { "name": "performance", "confidence": 0.86, "reason": "Resolves heap growth and unreleased listener memory over long connections." }
+      ],
+      "abstain": false,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 440
+    },
+    "duplicates": {
+      "candidates": [],
+      "isDuplicate": false,
+      "topScore": 0.25
+    },
+    "prAssessment": {
+      "band": "OK",
+      "score": 0,
+      "signals": [],
+      "explanation": "No significant low-effort signals identified; standard review workflow applies."
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  }
+}

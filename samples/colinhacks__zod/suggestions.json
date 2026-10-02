@@ -1,0 +1,75 @@
+{
+  "3101": {
+    "itemNumber": 3101,
+    "labels": {
+      "labels": [
+        { "name": "bug", "confidence": 0.95, "reason": "Type inference degrades to never under TypeScript 5.5." },
+        { "name": "typescript", "confidence": 0.98, "reason": "Directly impacts static z.infer type compilation." }
+      ],
+      "abstain": false,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 390
+    },
+    "duplicates": {
+      "candidates": [],
+      "isDuplicate": false,
+      "topScore": 0.15
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  },
+  "3102": {
+    "itemNumber": 3102,
+    "labels": {
+      "labels": [
+        { "name": "enhancement", "confidence": 0.92, "reason": "Proposes new built-in validator helper z.jwt()." }
+      ],
+      "abstain": false,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 310
+    },
+    "duplicates": {
+      "candidates": [],
+      "isDuplicate": false,
+      "topScore": 0.1
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  },
+  "3103": {
+    "itemNumber": 3103,
+    "labels": {
+      "labels": [],
+      "abstain": true,
+      "method": "llm-fewshot",
+      "model": "gemma3:1b",
+      "latencyMs": 180
+    },
+    "duplicates": {
+      "candidates": [],
+      "isDuplicate": false,
+      "topScore": 0.05
+    },
+    "prAssessment": {
+      "band": "LIKELY_LOW_EFFORT",
+      "score": 90,
+      "signals": [
+        { "id": "EMPTY_BODY", "weight": 40, "evidence": "PR description has 0 characters." },
+        { "id": "GENERIC_TITLE", "weight": 20, "evidence": "Title matches generic pattern: \"Fix typo in README\"." },
+        { "id": "NO_LINKED_ISSUE", "weight": 15, "evidence": "No linked issue reference found in PR description." },
+        { "id": "TRIVIAL_DOCS_EDIT", "weight": 35, "evidence": "Only documentation changed with 2 total line change(s) across 1 file(s)." }
+      ],
+      "explanation": "High low-effort signals detected (EMPTY_BODY, GENERIC_TITLE, NO_LINKED_ISSUE, TRIVIAL_DOCS_EDIT). Maintainer review recommended before merging."
+    },
+    "draftReply": {
+      "type": "PR_LOW_EFFORT",
+      "text": "Hi @typo_hunter, thanks for taking a look at Zod! It looks like this pull request contains a single punctuation edit to the README without an explanation or linked issue. Please check out our contributing guide for higher impact areas where community contributions are welcomed.",
+      "model": "template",
+      "missingFields": ["PR description explaining motivation and changes", "linked issue or context"]
+    },
+    "triagedAt": "2026-10-02T08:00:00Z",
+    "model": "gemma3:1b"
+  }
+}

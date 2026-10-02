@@ -1,0 +1,54 @@
+[
+  {
+    "id": 3101,
+    "number": 3101,
+    "kind": "issue",
+    "title": "z.discriminatedUnion type inference fails with optional discriminators",
+    "body": "When creating a discriminated union where one of the member types has an optional or undefined discriminator literal, z.infer<> degrades to `never` instead of narrowing properly in TypeScript 5.5.\n\n### Steps to reproduce\n```ts\nconst schema = z.discriminatedUnion('type', [\n  z.object({ type: z.literal('a'), value: z.string() }),\n  z.object({ type: z.undefined(), value: z.number() })\n]);\ntype T = z.infer<typeof schema>; // inferred as never\n```\nExpected: Type narrows correctly.",
+    "author": "ts_wizard",
+    "authorAssociation": "CONTRIBUTOR",
+    "createdAt": "2026-09-27T08:00:00Z",
+    "state": "open",
+    "labels": ["bug", "typescript"],
+    "url": "https://github.com/colinhacks/zod/issues/3101"
+  },
+  {
+    "id": 3102,
+    "number": 3102,
+    "kind": "issue",
+    "title": "Add z.jwt() helper schema for validating JSON Web Tokens",
+    "body": "It would be super helpful to have a built-in helper for validating JWT strings with header/payload/signature format regex checks, similar to z.string().email() or z.string().uuid().",
+    "author": "security_dev",
+    "authorAssociation": "NONE",
+    "createdAt": "2026-09-28T19:30:00Z",
+    "state": "open",
+    "labels": ["enhancement"],
+    "url": "https://github.com/colinhacks/zod/issues/3102"
+  },
+  {
+    "id": 3103,
+    "number": 3103,
+    "kind": "pr",
+    "title": "Fix typo in README",
+    "body": "",
+    "author": "typo_hunter",
+    "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+    "createdAt": "2026-10-01T04:12:00Z",
+    "state": "open",
+    "labels": [],
+    "url": "https://github.com/colinhacks/zod/pull/3103",
+    "pr": {
+      "changedFiles": [
+        {
+          "path": "README.md",
+          "additions": 1,
+          "deletions": 1,
+          "patch": "@@ -5,3 +5,3 @@\n-TypeScript-first schema validation with static type inference\n+TypeScript-first schema validation with static type inference."
+        }
+      ],
+      "totalAdditions": 1,
+      "totalDeletions": 1,
+      "changedFilesCount": 1
+    }
+  }
+]
