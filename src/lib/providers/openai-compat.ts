@@ -15,7 +15,9 @@ export class OpenAICompatLLMProvider implements LLMProvider {
     model?: string;
   } = {}) {
     this.name = options.name || "openai-compat";
-    this.baseUrl = (options.baseUrl || process.env.HOSTED_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "");
+    this.baseUrl = (options.baseUrl || process.env.HOSTED_BASE_URL || "https://api.openai.com/v1")
+      .replace(/\/chat\/completions\/?$/i, "")
+      .replace(/\/+$/, "");
     this.apiKey = options.apiKey || process.env.HOSTED_API_KEY;
     this.model = options.model || process.env.HOSTED_MODEL || "gemma-2-9b-it";
   }

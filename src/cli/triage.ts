@@ -1,11 +1,21 @@
-#!/usr/bin/env node
-
+import fs from "fs";
+import path from "path";
 import { GitHubFetcher } from "../lib/github/fetcher";
 import { TriagePipelineRunner } from "../lib/pipeline";
 import { EvalRunner } from "../lib/eval/runner";
 import { getLLMProvider, getEmbeddingProvider } from "../lib/providers/factory";
 import { logger } from "../lib/util/logger";
 import { spawn } from "child_process";
+
+// Auto-load .env for CLI commands
+try {
+  const envPath = path.resolve(process.cwd(), ".env");
+  if (fs.existsSync(envPath) && typeof process.loadEnvFile === "function") {
+    process.loadEnvFile(envPath);
+  }
+} catch {
+  // ignore
+}
 
 function printUsage(): void {
   console.log(`
@@ -84,7 +94,10 @@ async function main() {
         const { owner, repo } = parseRepoArg(args[1]);
         const limitStr = getOption(args, "--limit");
         const limit = limitStr ? parseInt(limitStr, 10) : 50;
-        const model = getOption(args, "--model") || process.env.OLLAMA_LLM_MODEL || "gemma3:1b";
+        const defaultModel = process.env.APP_MODE === "hosted"
+          ? (process.env.HOSTED_MODEL || "google/gemma-4-26b-a4b-it")
+          : (process.env.OLLAMA_LLM_MODEL || "gemma3:1b");
+        const model = getOption(args, "--model") || defaultModel;
         const methodStr = (getOption(args, "--method") || "llm-fewshot") as "knn" | "llm-zero" | "llm-fewshot";
 
         logger.info(`Running triage pipeline on ${owner}/${repo} using model '${model}'...`);
@@ -106,7 +119,10 @@ async function main() {
 
       case "eval": {
         const { owner, repo } = parseRepoArg(args[1]);
-        const modelsStr = getOption(args, "--models") || "gemma3:1b";
+        const defaultEvalModel = process.env.APP_MODE === "hosted"
+          ? (process.env.HOSTED_MODEL || "google/gemma-4-26b-a4b-it")
+          : (process.env.OLLAMA_LLM_MODEL || "gemma3:1b");
+        const modelsStr = getOption(args, "--models") || defaultEvalModel;
         const models = modelsStr.split(",").map((m) => m.trim());
         const testSizeStr = getOption(args, "--test-size");
         const testSize = testSizeStr ? parseInt(testSizeStr, 10) : 100;
