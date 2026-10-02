@@ -15,6 +15,7 @@ import {
   Loader2,
   ChevronRight,
   SlidersHorizontal,
+  Info,
 } from "lucide-react";
 import { Item, ItemTriageSuggestion } from "@/lib/schemas";
 import { ItemDetailModal } from "@/components/ItemDetailModal";
@@ -30,9 +31,9 @@ export default function QueuePage() {
   const [runningTriage, setRunningTriage] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // Filters & Search
   const [search, setSearch] = useState("");
   const [kindFilter, setKindFilter] = useState<"all" | "issue" | "pr">("all");
+  const [stateFilter, setStateFilter] = useState<"all" | "open" | "closed">("all");
   const [duplicateFilter, setDuplicateFilter] = useState(false);
   const [lowEffortFilter, setLowEffortFilter] = useState(false);
   const [abstainedFilter, setAbstainedFilter] = useState(false);
@@ -127,9 +128,18 @@ export default function QueuePage() {
     }
   };
 
+  // Counts for UI pills
+  const openCount = items.filter((i) => i.state === "open").length;
+  const closedCount = items.filter((i) => i.state === "closed").length;
+  const issueCount = items.filter((i) => i.kind === "issue").length;
+  const prCount = items.filter((i) => i.kind === "pr").length;
+  const openIssuesCount = items.filter((i) => i.kind === "issue" && i.state === "open").length;
+  const openPrsCount = items.filter((i) => i.kind === "pr" && i.state === "open").length;
+
   // Client-side filtering
   const filteredItems = items.filter((item) => {
     if (kindFilter !== "all" && item.kind !== kindFilter) return false;
+    if (stateFilter !== "all" && item.state !== stateFilter) return false;
     if (duplicateFilter && !item.suggestion?.duplicates?.isDuplicate) return false;
     if (lowEffortFilter && item.suggestion?.prAssessment?.band !== "LIKELY_LOW_EFFORT") return false;
     if (abstainedFilter && !item.suggestion?.labels?.abstain) return false;
@@ -193,6 +203,14 @@ export default function QueuePage() {
         </div>
       </div>
 
+      {/* Information Banner explaining triage window vs GitHub header counts */}
+      <div className="p-3 rounded-xl bg-blue-950/40 border border-blue-800/50 text-xs text-blue-200 flex items-start space-x-2.5">
+        <Info className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+        <div className="leading-relaxed">
+          <strong>Triage Window Context:</strong> OpenTriage fetched the most recent <strong>{items.length} created items</strong> (including both open and recently closed/merged items) to enable duplicate comparison across past resolutions and detect few-shot patterns. In this window, there are <strong>{openIssuesCount} open issues</strong> and <strong>{openPrsCount} open PRs</strong> (GitHub's top website tabs display all-time open items only).
+        </div>
+      </div>
+
       {/* Filter and Search Bar */}
       <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
         <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
@@ -208,6 +226,34 @@ export default function QueuePage() {
             />
           </div>
 
+          {/* Status Pill Selector */}
+          <div className="flex items-center p-1 rounded-lg bg-slate-950 border border-slate-800 text-xs">
+            <button
+              onClick={() => setStateFilter("all")}
+              className={`px-3 py-1 rounded-md transition ${
+                stateFilter === "all" ? "bg-slate-800 text-white font-medium shadow-sm" : "text-slate-400 hover:text-white"
+              }`}
+            >
+              All Status ({items.length})
+            </button>
+            <button
+              onClick={() => setStateFilter("open")}
+              className={`px-3 py-1 rounded-md transition ${
+                stateFilter === "open" ? "bg-slate-800 text-emerald-400 font-medium shadow-sm" : "text-slate-400 hover:text-white"
+              }`}
+            >
+              Open ({openCount})
+            </button>
+            <button
+              onClick={() => setStateFilter("closed")}
+              className={`px-3 py-1 rounded-md transition ${
+                stateFilter === "closed" ? "bg-slate-800 text-slate-300 font-medium shadow-sm" : "text-slate-400 hover:text-white"
+              }`}
+            >
+              Closed/Merged ({closedCount})
+            </button>
+          </div>
+
           {/* Kind Pill Selector */}
           <div className="flex items-center p-1 rounded-lg bg-slate-950 border border-slate-800 text-xs">
             <button
@@ -216,7 +262,7 @@ export default function QueuePage() {
                 kindFilter === "all" ? "bg-slate-800 text-white font-medium shadow-sm" : "text-slate-400 hover:text-white"
               }`}
             >
-              All ({items.length})
+              All Types
             </button>
             <button
               onClick={() => setKindFilter("issue")}
@@ -224,7 +270,7 @@ export default function QueuePage() {
                 kindFilter === "issue" ? "bg-slate-800 text-blue-400 font-medium shadow-sm" : "text-slate-400 hover:text-white"
               }`}
             >
-              Issues ({items.filter((i) => i.kind === "issue").length})
+              Issues ({issueCount})
             </button>
             <button
               onClick={() => setKindFilter("pr")}
@@ -232,7 +278,7 @@ export default function QueuePage() {
                 kindFilter === "pr" ? "bg-slate-800 text-purple-400 font-medium shadow-sm" : "text-slate-400 hover:text-white"
               }`}
             >
-              PRs ({items.filter((i) => i.kind === "pr").length})
+              PRs ({prCount})
             </button>
           </div>
         </div>

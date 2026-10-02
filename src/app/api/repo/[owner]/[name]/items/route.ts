@@ -21,6 +21,7 @@ export async function GET(
 
   const url = new URL(req.url);
   const kind = url.searchParams.get("kind"); // "issue" | "pr"
+  const state = url.searchParams.get("state"); // "open" | "closed"
   const hasDuplicate = url.searchParams.get("hasDuplicate"); // "true"
   const band = url.searchParams.get("band"); // "OK" | "REVIEW" | "LIKELY_LOW_EFFORT"
   const abstained = url.searchParams.get("abstained"); // "true"
@@ -39,6 +40,9 @@ export async function GET(
   // Apply filters
   if (kind && kind !== "all") {
     combined = combined.filter((i) => i.kind === kind);
+  }
+  if (state && state !== "all") {
+    combined = combined.filter((i) => i.state === state);
   }
   if (hasDuplicate === "true") {
     combined = combined.filter((i) => i.suggestion?.duplicates?.isDuplicate);
