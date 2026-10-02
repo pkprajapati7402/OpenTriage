@@ -127,7 +127,7 @@ export class EvalRunner {
       const llmResults = computeLabelMetrics(
         `Open Model: ${modelKey}`,
         modelKey,
-        isAvail ? "Local" : "Local",
+        (process.env.APP_MODE === "hosted" || llm.name.includes("hosted") || llm.name.includes("baseline")) ? "Hosted" : "Local",
         llmPredictions,
         eligibleSet,
         llmTotalSec

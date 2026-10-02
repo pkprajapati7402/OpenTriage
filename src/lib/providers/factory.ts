@@ -15,7 +15,7 @@ export function getLLMProvider(options: ProviderOptions = {}): LLMProvider {
   const mode = process.env.APP_MODE || "local";
   const requestedProvider = options.providerName || (mode === "hosted" ? "openai-compat" : "ollama");
 
-  if (requestedProvider === "baseline") {
+  if (requestedProvider === "baseline" || (process.env.BASELINE_MODEL && options.modelName === process.env.BASELINE_MODEL)) {
     return new OpenAICompatLLMProvider({
       name: "baseline",
       baseUrl: options.baseUrl || process.env.BASELINE_BASE_URL,
